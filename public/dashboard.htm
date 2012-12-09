@@ -14,9 +14,9 @@
 
         function init() {
 
-        ReportGrid.lineChart("#chart3",{
+        ReportGrid.lineChart("#conversionsPerMonth",{
         axes: ["month", "totClicks"],
-        load: ReportGrid.query.precog(theQuery),
+        load: ReportGrid.query.precog(conversionsPerMonth),
         options: {
         displayrulemajor:true
         }
@@ -81,7 +81,7 @@
 					</div>
 					<div class="row">
 						<div class="span6 well well-small"><h4>Conversions</h4>
-						  <div id="chart3" class="chartExample margin-zero"></div>
+						  <div id="conversionsPerMonth" class="chartExample margin-zero"></div>
 						</div>
 						<div class="span6 well well-small"><h4>CPR</h4></div>
 					</div>
