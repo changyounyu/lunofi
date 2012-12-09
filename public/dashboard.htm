@@ -9,11 +9,10 @@
 		<link rel="stylesheet" type="text/css" href="http://api.reportgrid.com/css/rg-charts.css"/>
 <script type="text/javascript" src="http://api.reportgrid.com/js/reportgrid-charts.js"></script>
 <script type="text/javascript" src="http://api.reportgrid.com/js/precog.js?apiKey=BFC07600-A2A9-49A6-A424-8BB09F2B6261&analyticsService=https://beta.precog.com/&basePath=/0000000868/"></script>
+<script type="text/javascript" src="assets/js/queries.js"></script>
 <script type="text/javascript">
 
         function init() {
-        var theQuery = " data := //ancestry totClicksMonth := solve 'month {month:'month, totClicks: sum(data.Clicks where data.month='month)} totClicksMonth "
-
 
         ReportGrid.lineChart("#chart3",{
         axes: ["month", "totClicks"],
