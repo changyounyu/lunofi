@@ -24,6 +24,14 @@
         }
         });
         
+        ReportGrid.barChart("#interactionHist",{
+        axes: ["interactions", "conversions"],
+        load: ReportGrid.query.precog(interactionHisto),
+        options: {
+        displayrulemajor:true
+        }
+        });
+        
         ReportGrid.leaderBoard("#leaderB", {
   			axes : ["Placement Group", "Totconversions"],
   			load : ReportGrid.query.precog(top5PlacementsByConv).sortValue("Totconversions").reverse()
@@ -134,7 +142,7 @@
 							  </tbody>
 							</table>
 						</div>
-						<div class="span4 well well-small"><h4>CPR</h4><h1>$42</h1></div>
+						<div class="span4 well well-small"><h4>Conversion Histogram</h4><div id="interactionHist" class="chartExample margin-zero"></div></div>
 					</div>
 					
 					<div class="row">
