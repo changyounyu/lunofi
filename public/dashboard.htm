@@ -10,6 +10,8 @@
 <script type="text/javascript" src="http://api.reportgrid.com/js/reportgrid-charts.js"></script>
 <script type="text/javascript" src="http://api.reportgrid.com/js/precog.js?apiKey=BFC07600-A2A9-49A6-A424-8BB09F2B6261&analyticsService=https://beta.precog.com/&basePath=/0000000868/"></script>
 <script type="text/javascript" src="assets/js/queries.js"></script>
+<script type="text/javascript" src="assets/js/prototype.js"></script>
+<script type="text/javascript" src="assets/js/accounting.min.js"></script>
 <script type="text/javascript">
 
         function init() {
@@ -26,7 +28,30 @@
   			axes : ["Placement Group", "Totconversions"],
   			load : ReportGrid.query.precog(top5PlacementsByConv).sortValue("Totconversions").reverse()
 				});
+				
+        Precog.query("data := //ancestry dataWithTotConv := data with {totConv:data.\"Total Registrations\" + data.\"View Signups\"} totConversions := sum(dataWithTotConv.totConv) totMediaCost := sum(dataWithTotConv.\"Media Cost\") totMediaCost/totConversions",
+        function(data) { cpcResult = data },
+        function(error) { console.log(error); }
+        );
+        				
+				Precog.query("data := //ancestry dataWithTotConv := data with {totConv:data.\"Total Registrations\" + data.\"View Signups\"} totConversions := sum(dataWithTotConv.totConv) totConversions",
+				  function(data) { totConv = data },
+				  function(error) { console.log(error); }
+				);
+								
+				Precog.query("data := //ancestry totMediaCost := sum(data.\"Media Cost\") totMediaCost",
+				  function(data) { totMedia = data },
+				  function(error) { console.log(error); }
+				);
+				
+				cpcResult = accounting.formatMoney(cpcResult);
+				
+				$("CPC").update(cpcResult);			
+				$("TC").update(Math.round(totConv));	
+				$("MediaSpend").update(accounting.formatMoney(totMedia));		
         }
+        
+        
         
 </script>
 		<!-- Le styles -->
@@ -77,7 +102,38 @@
 					</div>
 					<div class="row">
 						<div class="span4 well well-small"><h4>Top Performers</h4><div id="leaderB" class="chartExample margin-zero"></div></div>
-						<div class="span4 well well-small"><h4>ROI</h4><h1>2.34</h1></div>
+						<div class="span4 well well-small">
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<th>KPI</th>
+										<th>Value</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>Cost per Conversion</td>
+										<td><div id="CPC"></div></td>
+									</tr>
+									<tr>
+										<td>Total Conversions</td>
+										<td><div id="TC"></div></td>
+									</tr>
+									<tr>
+										<td>NPV</td>
+										<td><div id="NPV">N/A</div></td>
+									</tr>
+									<tr>
+										<td>Media Spend</td>
+										<td><div id="MediaSpend"></div></td>
+									</tr>
+									<tr>
+										<td>Cost per Revenue</td>
+										<td><div id="CPR">N/A</div></td>
+									</tr>
+							  </tbody>
+							</table>
+						</div>
 						<div class="span4 well well-small"><h4>CPR</h4><h1>$42</h1></div>
 					</div>
 					
@@ -109,38 +165,21 @@
 		<!-- Le javascript
 		================================================== -->
 		<!-- Placed at the end of the document so the pages load faster -->
-
 		<script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
-
 		<script src="assets/js/jquery.js"></script>
-
 		<script src="assets/js/google-code-prettify/prettify.js"></script>
-
 		<script src="assets/js/bootstrap-transition.js"></script>
-
 		<script src="assets/js/bootstrap-alert.js"></script>
-
 		<script src="assets/js/bootstrap-modal.js"></script>
-
 		<script src="assets/js/bootstrap-dropdown.js"></script>
-
 		<script src="assets/js/bootstrap-scrollspy.js"></script>
-
 		<script src="assets/js/bootstrap-tab.js"></script>
-
 		<script src="assets/js/bootstrap-tooltip.js"></script>
-
 		<script src="assets/js/bootstrap-popover.js"></script>
-
 		<script src="assets/js/bootstrap-button.js"></script>
-
 		<script src="assets/js/bootstrap-collapse.js"></script>
-
 		<script src="assets/js/bootstrap-carousel.js"></script>
-
 		<script src="assets/js/bootstrap-typeahead.js"></script>
-
 		<script src="assets/js/application.js"></script>
-
 	</body>
 </html>
