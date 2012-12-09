@@ -21,12 +21,18 @@
         displayrulemajor:true
         }
         });
+        
+        ReportGrid.leaderBoard("#leaderB", {
+  			axes : ["Placement Group", "Totconversions"],
+  			load : ReportGrid.query.precog(top5PlacementsByConv).sortValue("Totconversions").reverse()
+				});
         }
+        
 </script>
 		<!-- Le styles -->
 		<link href="assets/css/bootstrap.css" rel="stylesheet" />
 		<link href="assets/css/bootstrap-responsive.css" rel="stylesheet" />
-		<link href="assets/css/docs.css" rel="stylesheet" />
+		<link href="assEts/css/docs.css" rel="stylesheet" />
 		<link href="assets/js/prettify.css" rel="stylesheet" />
 		<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
 		<!--[if lt IE 9]>
@@ -70,10 +76,9 @@
 						<div class="span12"><h2>KPIs</h2></div>
 					</div>
 					<div class="row">
-						<div class="span3 well well-small"><h4>Conversions</h4><h1>550</h1></div>
-						<div class="span3 well well-small"><h4>ROI</h4><h1>2.34</h1></div>
-						<div class="span3 well well-small"><h4>CPR</h4><h1>$42</h1></div>
-						<div class="span3 well well-small"><h4>NPV</h4><h1>$1.1 billion</h1></div>
+						<div class="span4 well well-small"><h4>Top Performers</h4><div id="leaderB" class="chartExample margin-zero"></div></div>
+						<div class="span4 well well-small"><h4>ROI</h4><h1>2.34</h1></div>
+						<div class="span4 well well-small"><h4>CPR</h4><h1>$42</h1></div>
 					</div>
 					
 					<div class="row">
